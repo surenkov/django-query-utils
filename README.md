@@ -69,12 +69,12 @@ With `search_type="custom"` you may pass custom query expressions
 class MyFilterSet(django_filters.FilterSet):
     search = FullTextSearchFilter(
         vector=("first_name", "last_name", "email"),  # or `SearchVector` instance
-        search_type="phrase",
+        search_type="custom",
     )
 
 
 qs = User.objects.all()
-filter = MyFilterSet({"searh": "(John | Mike | Dan) Doe"}, qs)
+filters = MyFilterSet({"search": "(John | Mike | Dan) Doe"}, qs)
 ```
 
 
@@ -95,7 +95,7 @@ assert results == [{"first_name": "John", "last_name": "Doe"}]
 Different result materializers:
 
 ``` python
-from django_query_utils import Query, Dict query_context
+from django_query_utils import PlainMaterializer, Query, query_context
 
 query = Query(
     "select first_name, last_name from auth_user where email = %(email)s",

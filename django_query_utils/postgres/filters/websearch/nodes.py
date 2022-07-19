@@ -71,7 +71,7 @@ class Conjunction(BinaryOp[Node]):
 
 class Parens(UnaryOp[Node]):
     __slots__ = ()
-    OPEN_TOKEN, CLOSE_TOKEN = "()"
+    OPEN_TOKEN, CLOSE_TOKEN = "(", ")"
     PRIORITY = 4
 
     def __str__(self):
@@ -101,7 +101,7 @@ class Negation(UnaryOp[Node]):
 @dataclass
 class Literal(UnaryOp[str]):
     PRIORITY = 6
-    OPEN_TOKEN, CLOSE_TOKEN = "''"
+    OPEN_TOKEN, CLOSE_TOKEN = "'", "'"
     QUOTES = "'", '"'
 
     def __str__(self):

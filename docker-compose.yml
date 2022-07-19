@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+
+  tests:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+    depends_on:
+      - postgres
+    volumes:
+      - ./:/app

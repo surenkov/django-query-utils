@@ -50,7 +50,7 @@ class DictMaterializer(ResultMaterializer[t.Mapping[str, t.Any]]):
 
     def __call__(self, cursor):
         columns = tuple(col.name for col in cursor.description)
-        return (dict((col, row) for col in columns) for row in cursor)
+        return (dict(zip(columns, row)) for row in cursor)
 
     def to_type(self, type_: t.Type[base.KwargResultT]) -> SealedMaterializer[base.KwargResultT]:
         return TwoStarAdaptor(type_)

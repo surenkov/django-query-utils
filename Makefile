@@ -11,17 +11,22 @@ activate:
 	. .env/bin/activate
 
 
-.PHONY: build
-build: activate
-build:
+.PHONY: dist
+dist: activate
+dist:
 	python3 -m build
+
+
+.PHONY: build
+test: A=
+build:
+	docker compose build $(A)
 
 
 .PHONY: test
 test: A=
-test: activate
 test:
-	pytest $(A)
+	docker compose run --rm tests pytest $(A)
 
 
 .PHONY: upload
@@ -39,3 +44,4 @@ upload-test:
 .PHONY: clean
 clean:
 	rm -rf dist/* .env/ *.egg-info/
+	docker compose down -v

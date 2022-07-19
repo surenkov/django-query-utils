@@ -1,6 +1,6 @@
 import typing as t
 
-ResultT = t.TypeVar("ResultT", contravariant=True)
+ResultT = t.TypeVar("ResultT", covariant=True)
 NewResultT = t.TypeVar("NewResultT")
 
 

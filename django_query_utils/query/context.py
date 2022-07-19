@@ -14,10 +14,10 @@ try:
     from psycopg2 import sql
     RawQueryT = t.Union[str, sql.Composable]
 except ImportError:
-    RawQueryT = str
+    RawQueryT = str  # type: ignore
 
 
-@dataclass(slots=True)
+@dataclass
 class Query(t.Generic[base.ResultT]):
     query: RawQueryT
     arguments: t.Union[t.Mapping[str, t.Any], t.Collection[t.Any]] = ()
@@ -43,6 +43,6 @@ class BaseExecutionContext:
 class _MaterializedExecutionContext(BaseExecutionContext):
     __slots__ = ()
 
-    def execute(self, query: RawQuery[base.ResultT]) -> t.Iterable[base.ResultT]:
+    def execute(self, query: Query[base.ResultT]) -> t.Iterable[base.ResultT]:
         self.cursor.execute(query.query, query.arguments)
         return query.materializer(self.cursor)

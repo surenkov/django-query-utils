@@ -4,7 +4,7 @@ from shlex import shlex
 
 class WebSearchLexer(t.Iterator[str]):
     NON_TERM = "!()&|"
-    PAR_OPEN, PAR_CLOSE = "()"
+    PAR_OPEN, PAR_CLOSE = "(", ")"
 
     BIN_OP = "&|"
     CONS = "&"
